@@ -22,13 +22,18 @@
     var operandoA;
     var operandoB;
     var operacion;
+    var digitos;
+    var resparcial = 0;
+    var res = 0;
 //eventos
 
   uno.onclick = function(e){
     if ((resultado.textContent == "0") && (coma == 0)) {
       resultado.textContent = "1";
+      digitos = digitos + 1;
     } else {
       resultado.textContent = resultado.textContent + "1";
+      digitos = digitos + 1;
     }
   }
   dos.onclick = function(e){
@@ -110,9 +115,16 @@
     coma = 0;
   }
   suma.onclick = function(e){
-    operandoA = resultado.textContent;
-    operacion = "+";
-    resultado.textContent = "0";
+    operacion = "+"
+    if (resparcial == 0) {
+      operandoA = resultado.textContent;
+      resultado.textContent = "0";
+      parcial();
+    }else {
+      operandoB = resultado.textContent;
+      resultado.textContent = "0";
+      parcial();
+    }
   }
   resta.onclick = function(e){
     operandoA = resultado.textContent;
@@ -134,10 +146,9 @@
     resolver();
   }
   function resolver(){
-    var res = 0;
     switch (operacion){
       case "+":
-        res =  parseFloat(operandoA) + parseFloat(operandoB)
+        res =  parseFloat(resparcial) + parseFloat(operandoB)
         break;
       case "-":
         res =  parseFloat(operandoA) - parseFloat(operandoB)
@@ -153,6 +164,25 @@
     operandoA = 0;
     operandoB = 0;
     operacion = "";
-
+    resparcial = 0;
   }
+  function parcial(){
+    switch (operacion) {
+      case "+":
+        resparcial = parseFloat(operandoA) + parseFloat(operandoB)
+        break;
+      case "-":
+        resparcial = parseFloat(operandoA) - parseFloat(operandoB)
+        break;
+      case "*":
+        resparcial = parseFloat(operandoA) * parseFloat(operandoB)
+        break;
+      case "/":
+        resparcial = parseFloat(operandoA) / parseFloat(operandoB)
+        break;
+    }
+    operacion = "";
+  }
+
+
 }
