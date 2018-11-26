@@ -19,6 +19,7 @@
     var cero = document.getElementById('0');
     var punto = document.getElementById('punto');
     var signo = document.getElementById('sign')
+    var tecla = document.getElementsByClassName('tecla');
     var coma = 0;
     var operandoA;
     var operandoB;
@@ -26,6 +27,16 @@
     var resparcial = 0;
     var res = 0;
 //eventos
+  for (var i = 0; i < tecla.length; i++) {
+    tecla[i].addEventListener('mousedown', function() {
+      this.style.transform="scale(0.9)"
+    })
+  }
+  for (var i = 0; i < tecla.length; i++) {
+    tecla[i].addEventListener('mouseup', function() {
+      this.style.transform="scale(1)"
+    })
+  }
 
   uno.onclick = function(e){
     if ((resultado.textContent == "0") && (coma == 0)) {
@@ -114,6 +125,7 @@
     operandoB = 0;
     operacion = "";
     resparcial = 0;
+    coma = 0;
   }
   suma.onclick = function(e){
     switch (operacion) {
@@ -318,6 +330,69 @@
     }
   }
   division.onclick = function(e){
+    switch (operacion) {
+      case "":
+        operacion = "/"
+        if (resparcial == 0) {
+          operandoA = resultado.textContent;
+          operandoB = 1;
+          resultado.textContent = "";
+          parcial();
+        }else {
+          operandoB = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }
+        break;
+      case "/":
+        if (resparcial == 0) {
+          operandoA = resultado.textContent;
+          operandoB = 1;
+          resultado.textContent = "";
+          parcial();
+        }else {
+          operandoB = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }
+      case "*":
+        if (resparcial == 0) {
+          operandoA = resultado.textContent;
+          operandoB = 1;
+          resultado.textContent = "";
+          parcial();
+        }else {
+          operandoB = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }
+        operacion = "/"
+        break;
+      case "+":
+        if (operacion == 0) {
+          operandoA = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }else {
+          operandoB = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }
+        operacion = "/"
+        break;
+      case "-":
+        if (resparcial == 0) {
+          operandoA = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }else {
+          operandoB = resultado.textContent;
+          resultado.textContent = "";
+          parcial();
+        }
+        operacion = "/"
+        break;
+    }
   }
   igual.onclick = function(e){
     operandoB = resultado.textContent;
@@ -360,5 +435,8 @@
         resparcial = parseFloat(operandoA) / parseFloat(operandoB);
         break;
     }
+  }
+  function tamaño(){
+
   }
 }
